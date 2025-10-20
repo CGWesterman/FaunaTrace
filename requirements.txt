@@ -1,0 +1,6 @@
+# No external dependencies required for basic functionality
+# Optional: ffmpeg/ffprobe for enhanced video metadata extraction
+# Install ffmpeg separately for best results:
+# Windows: https://ffmpeg.org/download.html
+# macOS: brew install ffmpeg
+# Linux: sudo apt install ffmpeg

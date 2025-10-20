@@ -1,0 +1,48 @@
+# Foundry Transform Configuration for iNaturalist Time Processing
+
+transform:
+  name: "iNaturalist Time Processor"
+  description: "Processes iNaturalist data and updates time_observed_at based on 24-hour threshold"
+  version: "1.0.0"
+  
+inputs:
+  - name: "inaturalist_data"
+    type: "dataset"
+    description: "Input dataset containing iNaturalist observations with time_observed_at timestamps"
+    # Replace with your actual dataset RID
+    rid: "ri.foundry.main.dataset.your_input_dataset"
+    
+outputs:
+  - name: "processed_inaturalist_data"
+    type: "dataset"
+    description: "Processed iNaturalist data with updated time_observed_at values"
+    # Replace with your actual dataset RID
+    rid: "ri.foundry.main.dataset.your_output_dataset"
+
+parameters:
+  - name: "threshold_hours"
+    type: "integer"
+    default: 24
+    description: "Number of hours to use as threshold for time_observed_at processing"
+    
+  - name: "timezone"
+    type: "string"
+    default: "UTC"
+    description: "Timezone to use for timestamp processing"
+
+processing_logic:
+  description: "Updates time_observed_at to False if the timestamp is older than the specified threshold"
+  steps:
+    1: "Read input dataset"
+    2: "Calculate current time minus threshold hours"
+    3: "Compare each time_observed_at timestamp with threshold"
+    4: "Set time_observed_at to False for timestamps older than threshold"
+    5: "Write processed data to output dataset"
+
+dependencies:
+  - "pyspark"
+  - "transforms-api"
+  
+runtime:
+  spark_version: "3.3.0"
+  python_version: "3.9"
